@@ -149,7 +149,6 @@ namespace ADT
 
         public void Sort()
         {
-            
             Node actualNode = head;
             T temp;
             int n = this.Count;
@@ -168,17 +167,33 @@ namespace ADT
                         }
                         actualNode = actualNode.Next;
                     }
-                    
-                }
-                    
-                
+                } 
             }
-            
-               
-                
-            
         }
-
+        public void Sort(IComparer<T> ic)
+        {
+            Node actualNode = head;
+            T temp;
+            int n = this.Count;
+            for (int i = 0; i < n - 1; i++)
+            {
+                actualNode = head;
+                for (int j = 0; j < n - i - 1; j++)
+                {
+                    if (actualNode != null)
+                    {
+                        
+                        if (ic.Compare(actualNode.Data, actualNode.Next.Data) == 1)
+                        {
+                            temp = actualNode.Data;
+                            actualNode.Data = actualNode.Next.Data;
+                            actualNode.Next.Data = temp;
+                        }
+                        actualNode = actualNode.Next;
+                    }
+                }
+            }
+        }
         private class MyLinkedListEnumerator : IEnumerator
         {
             private Node _head;
